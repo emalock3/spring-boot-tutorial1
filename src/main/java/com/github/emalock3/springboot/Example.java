@@ -2,17 +2,19 @@ package com.github.emalock3.springboot;
 
 import org.springframework.boot.*;
 import org.springframework.boot.autoconfigure.*;
-import org.springframework.stereotype.*;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
+@Configuration
 @EnableAutoConfiguration
+@RequestMapping("/hello")
 public class Example {
 
-    @RequestMapping("/")
+    @RequestMapping(value="/{name}", method=RequestMethod.GET)
     @ResponseBody
-    String home() {
-        return "Hello World!";
+    public String home(@PathVariable String name) {
+        return String.format("Hello, %s!", name);
     }
 
     public static void main(String[] args) throws Exception {
